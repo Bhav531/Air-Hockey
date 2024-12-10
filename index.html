@@ -17,7 +17,7 @@
             background: #0099cc;
             display: block; /* Remove extra space below canvas */
         }
-        #message {
+        #message {      
             position: absolute;
             font-size: 24px;
             color: red;
@@ -25,15 +25,33 @@
             width: 100%;
             top: 20px;
         }
+        #welcome {
+            position: absolute;
+            font-size: 48px;
+            color: yellow;
+            text-align: center;
+            width: 100%;
+            top: 100px;
+            animation: vibrate 0.1s infinite; /* Vibrating effect */
+        }
+        @keyframes vibrate {
+            0% { transform: translate(0); }
+            25% { transform: translate(-1px, 1px); }
+            50% { transform: translate(-1px, -2px); }
+            75% { transform: translate(2px, 1px); }
+            100% { transform: translate(0); }
+        }
     </style>
 </head>
 <body>
     <canvas id="airHockey"></canvas>
+    <div id="welcome">Welcome to the Air Hockey Battle!</div>
     <div id="message">Move your cursor to control the paddle</div>
     <script>
         const canvas = document.getElementById('airHockey');
         const ctx = canvas.getContext('2d');
         const messageDiv = document.getElementById('message');
+        const welcomeDiv = document.getElementById('welcome');
 
         const paddleWidth = 10, paddleHeight = 100, puckRadius = 10;
         let player1 = { x: 0, y: 0, score: 0 };
@@ -124,6 +142,11 @@
                 messageDiv.textContent = "Move your cursor to control the paddle";
             }, 3000);
         }
+
+        // Hide welcome message after 5 seconds
+        setTimeout(() => {
+            welcomeDiv.style.opacity = 0;
+        }, 5000);
 
         function gameLoop() {
             update();
